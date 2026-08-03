@@ -50,7 +50,9 @@ public class HelloApplication extends Application {
             if (username.equals("admin") && password.equals("1234")) {
 
                 Dashboard dashboard = new Dashboard();
-                dashboard.show();
+                dashboard.show(username);
+
+                stage.close();
 
             } else {
 
