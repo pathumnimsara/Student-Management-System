@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import com.pathum.sms.studentmanagementsystem.database.StudentDatabase;
 import com.pathum.sms.studentmanagementsystem.model.Student;
 import javafx.scene.control.Alert;
+import com.pathum.sms.studentmanagementsystem.dao.StudentDAO;
 
 public class AddStudentView {
 
@@ -56,7 +57,9 @@ public class AddStudentView {
                     txtEmail.getText()
             );
 
-            StudentDatabase.students.add(student);
+            StudentDAO studentDAO = new StudentDAO();
+
+            boolean saved = studentDAO.addStudent(student);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");

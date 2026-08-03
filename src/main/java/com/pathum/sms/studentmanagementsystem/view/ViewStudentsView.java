@@ -1,10 +1,14 @@
 package com.pathum.sms.studentmanagementsystem.view;
 
-import com.pathum.sms.studentmanagementsystem.database.StudentDatabase;
+
 import com.pathum.sms.studentmanagementsystem.model.Student;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import com.pathum.sms.studentmanagementsystem.dao.StudentDAO;
+
+import java.util.List;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -52,9 +56,16 @@ public class ViewStudentsView {
                 colEmail
         );
 
-        // Load students
+        // Load students using DAO
+
+        StudentDAO studentDAO = new StudentDAO();
+
+        List<Student> students = studentDAO.getAllStudents();
+
+
         ObservableList<Student> list =
-                FXCollections.observableArrayList(StudentDatabase.students);
+                FXCollections.observableArrayList(students);
+
 
         table.setItems(list);
 

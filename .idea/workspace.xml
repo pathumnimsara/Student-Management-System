@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33e216b9-14fa-4fa5-a5ae-c33d4988cc1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/database/StudentDatabase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/view/AddStudentView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/view/ViewStudentsView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/dao/StudentDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/database/DBConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/model/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/view/ViewStudentsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pathum/sms/studentmanagementsystem/view/ViewStudentsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +85,7 @@
       <workItem from="1785659294728" duration="4297000" />
       <workItem from="1785670422357" duration="310000" />
       <workItem from="1785670745385" duration="3104000" />
-      <workItem from="1785768513905" duration="9082000" />
+      <workItem from="1785768513905" duration="14283000" />
     </task>
     <servers />
   </component>

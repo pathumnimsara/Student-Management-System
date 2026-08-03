@@ -7,6 +7,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import com.pathum.sms.studentmanagementsystem.view.AddStudentView;
+import com.pathum.sms.studentmanagementsystem.view.ViewStudentsView;
+
 
 public class Dashboard {
 
@@ -28,6 +30,12 @@ public class Dashboard {
 
         });
         Button btnViewStudents = new Button("View Students");
+        btnViewStudents.setOnAction(e -> {
+
+            ViewStudentsView view = new ViewStudentsView();
+            view.show();
+
+        });
         Button btnAbout = new Button("About");
         Button btnLogout = new Button("Logout");
         Button btnExit = new Button("Exit");
