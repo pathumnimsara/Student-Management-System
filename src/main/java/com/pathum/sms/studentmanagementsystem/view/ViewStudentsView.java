@@ -1,13 +1,10 @@
 package com.pathum.sms.studentmanagementsystem.view;
 
-
 import com.pathum.sms.studentmanagementsystem.model.Student;
-import com.pathum.sms.studentmanagementsystem.view.UpdateStudentView;
+import com.pathum.sms.studentmanagementsystem.dao.StudentDAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import com.pathum.sms.studentmanagementsystem.dao.StudentDAO;
 
 import java.util.List;
 
@@ -29,6 +26,7 @@ public class ViewStudentsView {
 
         Stage stage = new Stage();
 
+        // Create table
         TableView<Student> table = new TableView<>();
 
         // Create columns
@@ -48,11 +46,25 @@ public class ViewStudentsView {
                 new TableColumn<>("Email");
 
         // Connect columns to Student class
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-        colCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colId.setCellValueFactory(
+                new PropertyValueFactory<>("id")
+        );
+
+        colName.setCellValueFactory(
+                new PropertyValueFactory<>("name")
+        );
+
+        colAge.setCellValueFactory(
+                new PropertyValueFactory<>("age")
+        );
+
+        colCourse.setCellValueFactory(
+                new PropertyValueFactory<>("course")
+        );
+
+        colEmail.setCellValueFactory(
+                new PropertyValueFactory<>("email")
+        );
 
         // Add columns to table
         table.getColumns().addAll(
@@ -63,23 +75,27 @@ public class ViewStudentsView {
                 colEmail
         );
 
-        // Load students using DAO
-
+        // Load students from database
         StudentDAO studentDAO = new StudentDAO();
 
-        List<Student> students = studentDAO.getAllStudents();
-
+        List<Student> students =
+                studentDAO.getAllStudents();
 
         ObservableList<Student> list =
                 FXCollections.observableArrayList(students);
 
-
         table.setItems(list);
 
-// Create Update button
-        Button updateButton = new Button("Update Student");
-        Button deleteButton = new Button("Delete Student");
 
+        // Create buttons
+        Button updateButton =
+                new Button("Update Student");
+
+        Button deleteButton =
+                new Button("Delete Student");
+
+
+        // UPDATE BUTTON
         updateButton.setOnAction(e -> {
 
             Student selectedStudent =
@@ -87,24 +103,35 @@ public class ViewStudentsView {
 
             if (selectedStudent == null) {
 
-                Alert alert = new Alert(Alert.AlertType.WARNING);
+                Alert alert =
+                        new Alert(Alert.AlertType.WARNING);
+
                 alert.setTitle("No Student Selected");
                 alert.setHeaderText(null);
-                alert.setContentText("Please select a student first.");
+                alert.setContentText(
+                        "Please select a student first."
+                );
+
                 alert.showAndWait();
 
             } else {
 
-                UpdateStudentView updateView = new UpdateStudentView();
+                UpdateStudentView updateView =
+                        new UpdateStudentView();
 
+                // Refresh table after update
                 updateView.setOnUpdate(() -> {
 
-                    StudentDAO dao = new StudentDAO();
+                    StudentDAO dao =
+                            new StudentDAO();
 
-                    List<Student> updatedstudents = dao.getAllStudents();
+                    List<Student> updatedStudents =
+                            dao.getAllStudents();
 
                     ObservableList<Student> updatedList =
-                            FXCollections.observableArrayList(students);
+                            FXCollections.observableArrayList(
+                                    updatedStudents
+                            );
 
                     table.setItems(updatedList);
                 });
@@ -113,6 +140,8 @@ public class ViewStudentsView {
             }
         });
 
+
+        // DELETE BUTTON
         deleteButton.setOnAction(e -> {
 
             Student selectedStudent =
@@ -120,33 +149,49 @@ public class ViewStudentsView {
 
             if (selectedStudent == null) {
 
-                Alert alert = new Alert(Alert.AlertType.WARNING);
+                Alert alert =
+                        new Alert(Alert.AlertType.WARNING);
+
                 alert.setTitle("No Student Selected");
                 alert.setHeaderText(null);
-                alert.setContentText("Please select a student first.");
+                alert.setContentText(
+                        "Please select a student first."
+                );
+
                 alert.showAndWait();
 
             } else {
 
-                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                // Confirmation dialog
+                Alert confirm =
+                        new Alert(Alert.AlertType.CONFIRMATION);
+
                 confirm.setTitle("Delete Student");
                 confirm.setHeaderText(null);
+
                 confirm.setContentText(
                         "Are you sure you want to delete "
-                                + selectedStudent.getName() + "?"
+                                + selectedStudent.getName()
+                                + "?"
                 );
 
-                if (confirm.showAndWait().get() == ButtonType.OK) {
+                if (confirm.showAndWait().get()
+                        == ButtonType.OK) {
 
-                    StudentDAO dao = new StudentDAO();
+                    StudentDAO dao =
+                            new StudentDAO();
 
                     boolean deleted =
-                            dao.deleteStudent(selectedStudent.getId());
+                            dao.deleteStudent(
+                                    selectedStudent.getId()
+                            );
 
                     if (deleted) {
 
                         Alert success =
-                                new Alert(Alert.AlertType.INFORMATION);
+                                new Alert(
+                                        Alert.AlertType.INFORMATION
+                                );
 
                         success.setTitle("Success");
                         success.setHeaderText(null);
@@ -156,12 +201,16 @@ public class ViewStudentsView {
 
                         success.showAndWait();
 
-                        table.getItems().remove(selectedStudent);
+                        // Remove from table
+                        table.getItems()
+                                .remove(selectedStudent);
 
                     } else {
 
                         Alert error =
-                                new Alert(Alert.AlertType.ERROR);
+                                new Alert(
+                                        Alert.AlertType.ERROR
+                                );
 
                         error.setTitle("Error");
                         error.setHeaderText(null);
@@ -175,7 +224,8 @@ public class ViewStudentsView {
             }
         });
 
-// Create layout
+
+        // Create layout
         VBox root = new VBox(10);
 
         root.setPadding(new Insets(10));
@@ -186,13 +236,13 @@ public class ViewStudentsView {
                 deleteButton
         );
 
-// Create scene
-        Scene scene = new Scene(root, 700, 450);
+
+        // Create scene
+        Scene scene =
+                new Scene(root, 700, 450);
 
         stage.setTitle("All Students");
         stage.setScene(scene);
         stage.showAndWait();
-
     }
-
 }

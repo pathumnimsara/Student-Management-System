@@ -5,9 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import com.pathum.sms.studentmanagementsystem.database.StudentDatabase;
 import com.pathum.sms.studentmanagementsystem.model.Student;
-import javafx.scene.control.Alert;
 import com.pathum.sms.studentmanagementsystem.dao.StudentDAO;
 
 public class AddStudentView {
@@ -49,26 +47,105 @@ public class AddStudentView {
 
         btnSave.setOnAction(e -> {
 
-            Student student = new Student(
-                    Integer.parseInt(txtId.getText()),
-                    txtName.getText(),
-                    Integer.parseInt(txtAge.getText()),
-                    txtCourse.getText(),
-                    txtEmail.getText()
-            );
+            // Get values from text fields
+            String idText = txtId.getText().trim();
+            String name = txtName.getText().trim();
+            String ageText = txtAge.getText().trim();
+            String course = txtCourse.getText().trim();
+            String email = txtEmail.getText().trim();
 
-            StudentDAO studentDAO = new StudentDAO();
+            // Check empty fields
+            if (idText.isEmpty() ||
+                    name.isEmpty() ||
+                    ageText.isEmpty() ||
+                    course.isEmpty() ||
+                    email.isEmpty()) {
 
-            boolean saved = studentDAO.addStudent(student);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Missing Information");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all fields.");
+                alert.showAndWait();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText(null);
-            alert.setContentText("Student saved successfully!");
-            alert.showAndWait();
+                return;
+            }
 
-            System.out.println(StudentDatabase.students);
+            try {
 
+                // Convert ID and Age to numbers
+                int id = Integer.parseInt(idText);
+                int age = Integer.parseInt(ageText);
+
+                // Check age
+                if (age <= 0) {
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Age");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Age must be greater than 0.");
+                    alert.showAndWait();
+
+                    return;
+                }
+
+                // Check email
+                if (!email.contains("@") || !email.contains(".")) {
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Email");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid email address.");
+                    alert.showAndWait();
+
+                    return;
+                }
+
+                Student student = new Student(
+                        id,
+                        name,
+                        age,
+                        course,
+                        email
+                );
+
+                StudentDAO studentDAO = new StudentDAO();
+
+                boolean saved = studentDAO.addStudent(student);
+
+                if (saved) {
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Student saved successfully!");
+                    alert.showAndWait();
+
+                    // Clear fields after successful save
+                    txtId.clear();
+                    txtName.clear();
+                    txtAge.clear();
+                    txtCourse.clear();
+                    txtEmail.clear();
+
+                } else {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Student could not be saved.");
+                    alert.showAndWait();
+                }
+
+            } catch (NumberFormatException ex) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Number");
+                alert.setHeaderText(null);
+                alert.setContentText(
+                        "Student ID and Age must contain numbers only."
+                );
+                alert.showAndWait();
+            }
         });
 
         grid.add(title, 0, 0, 2, 1);
