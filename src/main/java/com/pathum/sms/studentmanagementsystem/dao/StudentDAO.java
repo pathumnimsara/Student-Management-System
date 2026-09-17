@@ -8,6 +8,7 @@ import com.pathum.sms.studentmanagementsystem.model.Student;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,6 +149,24 @@ public class StudentDAO {
 
         } catch (Exception e) {
 
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean deleteStudent(int id) {
+
+        String sql = "DELETE FROM students WHERE id = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
