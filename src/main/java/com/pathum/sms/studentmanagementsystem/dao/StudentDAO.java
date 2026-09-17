@@ -171,6 +171,23 @@ public class StudentDAO {
             return false;
         }
     }
+    public boolean studentIdExists(int id) {
 
+        String sql = "SELECT id FROM students WHERE id = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 

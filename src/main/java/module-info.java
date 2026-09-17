@@ -10,4 +10,6 @@ module com.pathum.sms.studentmanagementsystem {
 
     exports com.pathum.sms.studentmanagementsystem;
     exports com.pathum.sms.studentmanagementsystem.controller;
+    exports com.pathum.sms.studentmanagementsystem.view;
+    opens com.pathum.sms.studentmanagementsystem.view to javafx.fxml;
 }

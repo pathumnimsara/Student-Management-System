@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
-import com.pathum.sms.studentmanagementsystem.Dashboard;
+import com.pathum.sms.studentmanagementsystem.view.Dashboard;
 
 public class HelloApplication extends Application {
 
@@ -50,7 +50,7 @@ public class HelloApplication extends Application {
             if (username.equals("admin") && password.equals("1234")) {
 
                 Dashboard dashboard = new Dashboard();
-                dashboard.show(username);
+                dashboard.show();
 
                 stage.close();
 
