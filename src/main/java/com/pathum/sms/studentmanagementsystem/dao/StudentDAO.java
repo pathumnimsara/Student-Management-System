@@ -124,6 +124,34 @@ public class StudentDAO {
 
 
     }
+    public boolean updateStudent(Student student) {
 
+        String sql =
+                "UPDATE students SET name=?, age=?, course=?, email=? WHERE id=?";
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            PreparedStatement ps =
+                    con.prepareStatement(sql);
+
+            ps.setString(1, student.getName());
+            ps.setInt(2, student.getAge());
+            ps.setString(3, student.getCourse());
+            ps.setString(4, student.getEmail());
+            ps.setInt(5, student.getId());
+
+            int result = ps.executeUpdate();
+
+            return result > 0;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
+
